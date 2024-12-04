@@ -1,4 +1,4 @@
-const CACHE_NAME = 'portafolio-cache-v1';
+const CACHE_NAME = 'portafolio-cache-v5';
 const urlsToCache = [
   './',
   './index.html',
@@ -17,6 +17,8 @@ const urlsToCache = [
   './img/anima.png',
   './img/game.png',
   './img/icon.jpeg',
+  './img/icon-192x192.png',
+  './img/icon-512x512.png',
   './Modelado3D.html',
   './img/modelos 3D/1.png',
   './img/modelos 3D/2.png',
