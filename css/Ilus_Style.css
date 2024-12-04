@@ -1,0 +1,209 @@
+body {
+    background-color: #00bb77; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23000' fill-opacity='.1' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
+    background-repeat: repeat;  
+    background-attachment: fixed;
+}
+
+p {
+    font-family: 'Arial', sans-serif; 
+    font-size: 1.1rem;
+    line-height: 1.8; 
+    color: #001057b3; 
+    margin: 1rem 0; 
+    padding: 1rem; 
+    border-radius: 8px; 
+    font-weight: bold;
+}
+
+.btn-custom {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #00ff88; 
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #9413bb; 
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom:active {
+    background-color: #007255;
+    transform: translateY(0);
+}
+
+h1, h2, p {
+    margin: 0;
+    text-align: center;
+}
+
+.hero {
+    background: linear-gradient(135deg, #007255, #4d0f60);
+    color: #f1f1f1;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.gallery {
+    padding: 4rem 2rem;
+    background-color: #00bb77; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpolygon fill='%23000' fill-opacity='.1' points='120 0 120 60 90 30 60 0 0 0 0 0 60 60 0 120 60 120 90 90 120 60 120 0'/%3E%3C/svg%3E");
+    background-repeat: repeat;  
+    background-attachment: fixed;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+}
+
+.lightbox {
+    display: none; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+}
+
+#lightbox-img {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain; 
+    border: 5px solid #00bb77;
+    border-radius: 10px; 
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+}
+
+.image-container {
+    margin: 2rem auto; 
+    max-width: 90%; 
+    padding: 2rem; 
+    background-color: rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.image-container img {
+    width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out; 
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    background-color: #4c6daf;
+    margin: 20px 0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.divider h1 {
+    color: white;
+    font-size: 3rem; 
+    margin: 0;
+}
+
+.custom-footer {
+    background-color: #000;
+    color: #fff; 
+    padding: 2rem 1rem;
+    text-align: center;
+    position: relative;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.footer-graphic .footer-image {
+    max-width: 150px; 
+}
+
+.footer-text p {
+    font-size: 1rem;
+    color: #ffffffb3; 
+    margin: 0.5rem 0;
+}
+
+.footer-text h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4caf7c;
+    text-transform: uppercase;
+    margin: 0.5rem 0;
+}
+
+.footer-text .sparkle {
+    color: #ffc107; 
+}
+
+.contact-info p {
+    margin: 0.3rem 0;
+    color: #4caf7c;
+    font-weight: bold;
+}
+
+.footer-qr .qr-code {
+    max-width: 100px;
+    margin: 1rem 0;
+}
+
