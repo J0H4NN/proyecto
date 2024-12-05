@@ -5,6 +5,7 @@ const urlsToCache = [
   './css/style.css',
   './css/Ilus_Style.css',
   './js/Ilus_Script.js',
+  './script.js',
   './img/Blender.png',
   './img/ClipStudio.png',
   './img/CapCut.png',
