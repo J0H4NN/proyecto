@@ -61,31 +61,55 @@ const urlsToCache = [
   './img/videojuegos/enemigo.png',
 ];
 
+// Evento de instalación
 self.addEventListener('install', event => {
+  console.log('Service Worker: Instalando...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+      .then(cache => {
+        console.log('Archivos cacheados correctamente');
+        return cache.addAll(urlsToCache);
+      })
+      .catch(err => console.error('Error al cachear archivos durante instalación:', err))
   );
 });
 
+// Evento de activación
+self.addEventListener('activate', event => {
+  console.log('Service Worker: Activando...');
+  const cacheWhitelist = [CACHE_NAME]; // Lista blanca de caches permitidas
+
+  event.waitUntil(
+    caches.keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (!cacheWhitelist.includes(cacheName)) {
+              console.log(`Eliminando cache antiguo: ${cacheName}`);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+      .then(() => self.clients.claim()) // Activa el SW en todas las pestañas
+  );
+});
+
+// Evento de fetch (recuperación)
 self.addEventListener('fetch', event => {
+  console.log('Service Worker: Recuperando:', event.request.url);
   event.respondWith(
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
-});
-
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName); 
-          }
-        })
-      );
-    })
+      .then(response => {
+        if (response) {
+          // Devuelve el archivo desde el cache
+          console.log('Recuperado del cache:', event.request.url);
+          return response;
+        }
+        // Si no está en cache, lo recupera de la red
+        console.log('Recuperado de la red:', event.request.url);
+        return fetch(event.request);
+      })
+      .catch(err => console.error('Error en fetch:', err))
   );
 });
