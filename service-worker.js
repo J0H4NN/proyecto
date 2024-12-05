@@ -61,55 +61,34 @@ const urlsToCache = [
   './img/videojuegos/enemigo.png',
 ];
 
-// Evento de instalación
-self.addEventListener('install', event => {
-  console.log('Service Worker: Instalando...');
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Archivos cacheados correctamente');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => console.error('Error al cachear archivos durante instalación:', err))
-  );
-});
-
-// Evento de activación
-self.addEventListener('activate', event => {
-  console.log('Service Worker: Activando...');
-  const cacheWhitelist = [CACHE_NAME]; // Lista blanca de caches permitidas
-
-  event.waitUntil(
-    caches.keys()
-      .then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => {
-            if (!cacheWhitelist.includes(cacheName)) {
-              console.log(`Eliminando cache antiguo: ${cacheName}`);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-      .then(() => self.clients.claim()) // Activa el SW en todas las pestañas
-  );
-});
-
-// Evento de fetch (recuperación)
 self.addEventListener('fetch', event => {
-  console.log('Service Worker: Recuperando:', event.request.url);
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          // Devuelve el archivo desde el cache
-          console.log('Recuperado del cache:', event.request.url);
-          return response;
+    caches.match(event.request) // Busca el recurso en el cache
+      .then(cachedResponse => {
+        if (cachedResponse) {
+          // Si el recurso está en el cache, se devuelve
+          return cachedResponse;
         }
-        // Si no está en cache, lo recupera de la red
-        console.log('Recuperado de la red:', event.request.url);
-        return fetch(event.request);
+        // Si no está en el cache, intenta recuperarlo de la red
+        return fetch(event.request)
+          .catch(err => {
+            console.error('Error al recuperar el recurso de la red:', err);
+            // Devuelve un fallback (opcional) o una respuesta vacía
+            return new Response('Contenido no disponible offline', {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: { 'Content-Type': 'text/plain' }
+            });
+          });
       })
-      .catch(err => console.error('Error en fetch:', err))
+      .catch(err => {
+        console.error('Error al buscar el recurso:', err);
+        // Si `caches.match` falla, devuelve un error
+        return new Response('Error interno del Service Worker', {
+          status: 500,
+          statusText: 'Internal Server Error',
+          headers: { 'Content-Type': 'text/plain' }
+        });
+      })
   );
 });
